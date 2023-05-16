@@ -25,6 +25,10 @@ const Home: NextPage = () => {
             Edit your smart contract <code className="italic bg-base-300 text-base font-bold">YourContract.sol</code> in{" "}
             <code className="italic bg-base-300 text-base font-bold">packages/hardhat/contracts</code>
           </p>
+          <p className="text-center text-lg">
+            Dream something with{" "}
+            <code className="italic bg-base-300 text-base font-bold">packages/nextjs/pages/nft-minter.tsx</code>
+          </p>
         </div>
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
@@ -47,6 +51,16 @@ const Home: NextPage = () => {
                   Example UI
                 </Link>{" "}
                 to build your own UI.
+              </p>
+            </div>
+            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
+              <SparklesIcon className="h-8 w-8 fill-secondary" />
+              <p>
+                Experiment with{" "}
+                <Link href="/nft-minter" passHref className="link">
+                  Stable Diffusion AI
+                </Link>{" "}
+                to mint your own NFT.
               </p>
             </div>
           </div>
