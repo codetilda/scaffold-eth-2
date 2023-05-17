@@ -45,10 +45,18 @@ export const Header = () => {
           Debug Contracts
         </NavLink>
       </li>
-      <li>
+      {/*<li>
         <NavLink href="/example-ui">
           <SparklesIcon className="h-4 w-4" />
           Example UI
+        </NavLink>
+      </li>
+      */
+      }
+      <li>
+        <NavLink href="/nft-minter">
+          <SparklesIcon className="h-4 w-4" />
+          Mint AI NFT
         </NavLink>
       </li>
     </>
