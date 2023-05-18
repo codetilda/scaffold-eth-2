@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/NftMinter.module.css";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -54,17 +53,17 @@ const NftMinter: NextPage = () => {
 
   return (
     <>
-        <Head>
-            <title>Mint AI NFT Example UI</title>
-            <meta name="description" content="Created with 🏗 scaffold-eth-2 and Replicate" />
-            {/* We are importing the font this way to lighten the size of SE2. */}
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
-        </Head>
-        <div className={styles.container}>
-        <form className={styles.form} onSubmit={handleSubmit} >
-            <input type="text" name="prompt" placeholder="Enter a prompt to display an image" />
-            <button type="submit">Go!</button>
+      <Head>
+        <title>Mint AI NFT Example UI</title>
+        <meta name="description" content="Created with 🏗 scaffold-eth-2 and Replicate" />
+        {/* We are importing the font this way to lighten the size of SE2. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
+      </Head>
+      <div className="container mx-auto p-8 text-xl max-w-2xl">
+        <form className="flex mb-8" onSubmit={handleSubmit} >
+          <input className="w-full p-4 rounded text-xl mr-4 border-2" type="text" name="prompt" placeholder="Enter a prompt to display an image" />
+          <button className="p-4 rounded box-border cursor-pointer text-xl" type="submit">Go!</button>
         </form>
 
         {error && <div>{error}</div>}
@@ -72,19 +71,19 @@ const NftMinter: NextPage = () => {
         {prediction && (
             <div>
                 {prediction.output && (
-                <div className={styles.imageWrapper}>
+                <div /*className="w-full place-content-center"*/>
                 <Image
-                    fill
                     src={prediction.output[prediction.output.length - 1]}
-                    alt="output"
-                    sizes='100vw'
+                    alt="AI Generated NFT"
+                    height={512}
+                    width={512}
                 />
                 </div>
                 )}
                 <p>status: {prediction.status}</p>
             </div>
-        )}
-        </div>
+          )}
+      </div>
     </>
   );
 };
