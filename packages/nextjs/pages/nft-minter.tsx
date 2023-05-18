@@ -1,5 +1,11 @@
+// TODO:
+// Add canvas to draw nft ideas on
+// Add ipfs to upload to
+// Add minting to chain
+// Add uploads to save link to generated image
+
 import type { NextPage } from "next";
-import { FormEventHandler, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 
