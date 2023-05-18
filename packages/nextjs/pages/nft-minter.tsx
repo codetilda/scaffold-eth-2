@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { FormEventHandler, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -16,39 +16,39 @@ const NftMinter: NextPage = () => {
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); 
-
+  
     const response = await fetch("/api/predictions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        prompt: e.target.prompt.value,
-      }),
-    });
-    let prediction = await response.json();
-    if (response.status !== 201) {
-      setError(prediction.detail);
-      return;
-    }
-    setPrediction(prediction);
-
-    while (
-      prediction.status !== "succeeded" &&
-      prediction.status !== "failed"
-    ) {
-      await sleep(1000);
-      const response = await fetch("/api/predictions/" + prediction.id);
-      prediction = await response.json();
-      if (response.status !== 200) {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: e.target.prompt.value,
+        }),
+      });
+      let prediction = await response.json();
+      if (response.status !== 201) {
         setError(prediction.detail);
         return;
       }
-      console.log({prediction})
       setPrediction(prediction);
-    }
+
+      while (
+        prediction.status !== "succeeded" &&
+        prediction.status !== "failed"
+      ) {
+        await sleep(1000);
+        const response = await fetch("/api/predictions/" + prediction.id);
+        prediction = await response.json();
+        if (response.status !== 200) {
+          setError(prediction.detail);
+          return;
+        }
+        console.log({prediction})
+        setPrediction(prediction);
+      }
   };
 
   return (
@@ -61,9 +61,9 @@ const NftMinter: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </Head>
       <div className="container mx-auto p-8 text-xl max-w-2xl">
-        <form className="flex mb-8" onSubmit={handleSubmit} >
+        <form className="flex mb-8" onSubmit={handleSubmit}>
           <input className="w-full p-4 rounded text-xl mr-4 border-2" type="text" name="prompt" placeholder="Enter a prompt to display an image" />
-          <button className="p-4 rounded box-border cursor-pointer text-xl" type="submit">Go!</button>
+          <button className="p-4 rounded border-2 cursor-pointer text-xl" type="submit">Generate!</button>
         </form>
 
         {error && <div>{error}</div>}
@@ -71,12 +71,12 @@ const NftMinter: NextPage = () => {
         {prediction && (
             <div>
                 {prediction.output && (
-                <div /*className="w-full place-content-center"*/>
+                <div className="flex flex-wrap justify-center">
                 <Image
                     src={prediction.output[prediction.output.length - 1]}
                     alt="AI Generated NFT"
-                    height={512}
-                    width={512}
+                    height={256}
+                    width={256}
                 />
                 </div>
                 )}
