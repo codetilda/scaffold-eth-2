@@ -10,7 +10,7 @@ function sleep(ms: number) {
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
-const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deployYourCollectible: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
 
@@ -24,7 +24,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  await deploy("YourContract", {
+  await deploy("YourCollectible", {
     from: deployer,
     // Contract constructor arguments
     // args: [deployer],
@@ -35,18 +35,18 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   });
 
   // Get the deployed contract
-  const yourContract = await hre.ethers.getContract("YourContract", deployer);
-  console.log("YourContract deployed to:", yourContract.address);
+  const yourContract = await hre.ethers.getContract("YourCollectible", deployer);
+  console.log("YourCollectible deployed to:", yourContract.address);
 
   sleep(5000);
 
   // transfer ownership to another account
-  const ownershipTransaction = await yourContract.transferOwnership("0x73dCcdABFd430133e379611AA3efd636a9844fbD");
-  console.log("Ownership transfer transaction hash:", ownershipTransaction.hash);
+  // const ownershipTransaction = await yourContract.transferOwnership("0x73dCcdABFd430133e379611AA3efd636a9844fbD");
+  // console.log("Ownership transfer transaction hash:", ownershipTransaction.hash);
 };
 
-export default deployYourContract;
+export default deployYourCollectible;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["YourContract"];
+deployYourCollectible.tags = ["YourCollectible"];
